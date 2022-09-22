@@ -9,5 +9,4 @@ public enum Facility {
     Refrigerator,
     Restaurant,
     SwimmingPool
-
 }
