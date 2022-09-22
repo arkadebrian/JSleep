@@ -17,9 +17,9 @@ public class Price {
         this.rebate = 0;
     }
 
-    public Price(double rebate, double price) {
-        this.rebate = rebate;
+    public Price(double price, double rebate) {
         this.price = price;
+        this.rebate = rebate;
         this.discount = 0;
     }
 
