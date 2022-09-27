@@ -1,4 +1,4 @@
-package ArkaBrianJSleepRJ;
+                                                                                                                                                                                                       package ArkaBrianJSleepRJ;
 
 /*
  * By: Arka Brian Dewara (2106731421)
@@ -8,11 +8,10 @@ public class JSleep
 {
 
     public static void main(String[] args) {
-        Room test = createRoom();
-        System.out.println(test.name);
-        System.out.println(test.size);
-        System.out.println(test.price.price);
-        System.out.println(test.facility);
+        Payment testRoom = new Payment(1, 1, 1, "", 1, "", "");
+        Invoice testInvoice = new Invoice(2, 2, 2, "");
+        System.out.println(testRoom.print());
+        System.out.println(testInvoice.print());
     }
 
 //    static int getHotelId(){
@@ -61,9 +60,9 @@ public class JSleep
 //        return (price + getAdminFee(price))*numberOfNight;
 //    }
 
-    public static Room createRoom(){
-        Price price = new Price(100000, 5);
-        return new Room("hotel", 30, price, Facility.AC);
-    }
+//    public static Room createRoom(){
+//        Price price = new Price(100000, 5);
+//        return new Room("hotel", 30, price, Facility.AC);
+//    }
 
 }
