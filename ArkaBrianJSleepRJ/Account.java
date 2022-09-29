@@ -13,4 +13,11 @@ public class Account extends Serializable{
         this.password = password;
     }
 
+    public String toString() {
+        return "Account{\n" +
+               "\tname='" + this.name + '\n' +
+               "\temail='" + this.email + '\n' +
+               "\tpassword='" + this.password + '\n' +
+               '}';
+    }
 }

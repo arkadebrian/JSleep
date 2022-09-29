@@ -44,7 +44,14 @@ public class Price {
         this.discount = discount;
     }
 
-//    private double getDiscountedPrice(){
+    public String toString() {
+        return "Price{\n" +
+               "\tprice=" + this.price + '\n' +
+               "\tdiscount=" + this.discount + '\n' +
+               '}';
+    }
+
+    //    private double getDiscountedPrice(){
 //        if(this.discount > 100) this.discount = 100;
 //
 //        return this.price - (this.price*(((double)this.discount)/100));

@@ -25,4 +25,12 @@ public class Rating {
         if(this.count == 0) return 0;
         return (double)this.total/(double)this.count;
     }
+
+    @Override
+    public String toString() {
+        return "Rating{\n" +
+               "\ttotal=" + this.total + '\n' +
+               "\tcount=" + this.count + '\n' +
+               '}';
+    }
 }
