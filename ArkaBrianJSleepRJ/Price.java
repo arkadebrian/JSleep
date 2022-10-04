@@ -51,7 +51,7 @@ public class Price {
                '}';
     }
 
-    //    private double getDiscountedPrice(){
+    //        private double getDiscountedPrice(){
 //        if(this.discount > 100) this.discount = 100;
 //
 //        return this.price - (this.price*(((double)this.discount)/100));

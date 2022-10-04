@@ -1,5 +1,7 @@
 package ArkaBrianJSleepRJ;
 
+import java.util.Calendar;
+
 public class Invoice extends Serializable{
     public enum RoomRating{
         NONE,
@@ -16,24 +18,24 @@ public class Invoice extends Serializable{
 
     public int buyerId;
     public int renterId;
-    public String time;
+    public Calendar time;
     public RoomRating rating;
     public PaymentStatus status;
 
     /**Constructor which uses ID, Buyer ID, Renter ID, and time*/
-    protected Invoice(int id, int buyerId, int renterId, String time) {
+    protected Invoice(int id, int buyerId, int renterId) {
         super(id);
         this.buyerId = buyerId;
         this.renterId = renterId;
-        this.time = time;
+        this.time = Calendar.getInstance();
         this.rating = RoomRating.NONE;
         this.status = PaymentStatus.WAITING;
     }
 
     /**Constructor which uses ID, Buyer Object, Renter Object, and time*/
-    public Invoice(int id, Account buyer, Renter renter, String time) {
+    public Invoice(int id, Account buyer, Renter renter) {
         super(id);
-        this.time = time;
+        this.time = Calendar.getInstance();
         this.buyerId = buyer.id;
         this.renterId = renter.id;
         this.rating = RoomRating.NONE;

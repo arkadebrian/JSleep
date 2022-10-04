@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Invoice
+comment1.params=id\ buyerId\ renterId
+comment1.target=Invoice(int,\ int,\ int)
+comment1.text=Constructor\ which\ uses\ ID,\ Buyer\ ID,\ Renter\ ID,\ and\ time
+comment2.params=id\ buyer\ renter
+comment2.target=Invoice(int,\ Account,\ Renter)
+comment2.text=Constructor\ which\ uses\ ID,\ Buyer\ Object,\ Renter\ Object,\ and\ time
+comment3.params=
+comment3.target=java.lang.String\ print()
+comment3.text=This\ method\ will\ return\ the\ string\ which\ contains\ all\ attributes\ in\ this\ class
+numComments=4
