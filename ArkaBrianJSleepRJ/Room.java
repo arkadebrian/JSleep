@@ -1,5 +1,8 @@
 package ArkaBrianJSleepRJ;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Room extends Serializable implements FileParser{
     public Price price;
     public String address;
@@ -8,6 +11,7 @@ public class Room extends Serializable implements FileParser{
     public BedType bedType;
     public City city;
     public String name;
+    public ArrayList<Date> booked;
 
     public Room(int id, String name, int size, Price price, Facility facility, City city, String address) {
         super(id);
@@ -17,6 +21,7 @@ public class Room extends Serializable implements FileParser{
         this.facility = facility;
         this.city = city;
         this.address = address;
+        this.booked = new ArrayList<>();
     }
 
     public String toString() {
