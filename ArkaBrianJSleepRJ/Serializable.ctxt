@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Serializable
-comment0.text=This\ class\ will\ be\ the\ parent\ of\ a\ lot\ of\ other\ classes
-comment1.params=id
-comment1.target=Serializable(int)
-comment1.text=So,\ ID\ will\ be\ inherited\ to\ a\ lot\ of\ other\ classes
-numComments=2

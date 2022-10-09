@@ -1,6 +1,0 @@
-#BlueJ class context
-comment0.target=Validate
-comment1.params=list\ value\ less
-comment1.target=java.util.ArrayList\ filter(Price[],\ int,\ boolean)
-comment1.text=This\ method\ will\ filter\ the\ given\ Price\ Objects\ according\ to\ the\ boolen\ value.\ If\ it\ is\ true,\ then\ it\ will\ filter\ the\ prices\ that\ are\ less\ or\ equal\ than\ given\ value
-numComments=2
