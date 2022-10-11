@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Serializable {
     /**To identify anything, something must have an ID*/
     public int id;
-    private static HashMap<Class<?>, Integer> mapCounter;
+    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<>();
 
     /**So, ID will be inherited to a lot of other classes*/
     protected Serializable() {
