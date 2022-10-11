@@ -13,8 +13,7 @@ public class Room extends Serializable implements FileParser{
     public String name;
     public ArrayList<Date> booked;
 
-    public Room(int id, String name, int size, Price price, Facility facility, City city, String address) {
-        super(id);
+    public Room(String name, int size, Price price, Facility facility, City city, String address) {
         this.name = name;
         this.size = size;
         this.price = price;
@@ -33,6 +32,7 @@ public class Room extends Serializable implements FileParser{
                "\tbedType = " + this.bedType + '\n' +
                "\tcity = " + this.city + '\n' +
                "\tname = " + this.name + '\n' +
+               "\tID = " + this.id + '\n' +
                '}';
     }
 

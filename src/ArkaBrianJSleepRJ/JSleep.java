@@ -5,11 +5,17 @@ package ArkaBrianJSleepRJ;
 */
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class JSleep {
     public static void main(String[] args) {
-        System.err.println("Hello from IntelliJ!");
+        ArrayList<Room> RoomSerialized = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            RoomSerialized.add(i, JSleep.createRoom());
+            System.out.println(RoomSerialized.get(i).toString());
+        }
     }
 
 //    static int getHotelId(){
@@ -58,8 +64,8 @@ public class JSleep {
 //    }
 
     public static Room createRoom(){
-        Price price = new Price(100000, 5);
-        return new Room(30, "hotel", 3, price, Facility.Balcony, City.JAKARTA, "Jl. Jalan");
+        Price price = new Price(100000, 0.5);
+        return new Room("Hotel", 30, price, Facility.AC, City.DEPOK, "Jalan Margonda Raya");
     }
 
 }

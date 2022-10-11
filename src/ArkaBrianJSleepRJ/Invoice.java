@@ -24,8 +24,7 @@ public class Invoice extends Serializable{
     public PaymentStatus status;
 
     /**Constructor which uses ID, Buyer ID, Renter ID, and time*/
-    protected Invoice(int id, int buyerId, int renterId) {
-        super(id);
+    protected Invoice(int buyerId, int renterId) {
         this.buyerId = buyerId;
         this.renterId = renterId;
         this.time = new Date();
@@ -34,8 +33,7 @@ public class Invoice extends Serializable{
     }
 
     /**Constructor which uses ID, Buyer Object, Renter Object, and time*/
-    public Invoice(int id, Account buyer, Renter renter) {
-        super(id);
+    public Invoice(Account buyer, Renter renter) {
         this.time = new Date();
         this.buyerId = buyer.id;
         this.renterId = renter.id;

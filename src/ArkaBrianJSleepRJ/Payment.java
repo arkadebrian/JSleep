@@ -10,16 +10,16 @@ public class Payment extends Invoice{
     private int roomId;
     
     /** Constructor to take ID, Buyer ID, Renter ID, time, Room ID, From, and To */
-    public Payment(int id, int buyerId, int renterId, int roomId, Date from, Date to) {
-        super(id, buyerId, renterId);
+    public Payment(int buyerId, int renterId, int roomId, Date from, Date to) {
+        super(buyerId, renterId);
         this.roomId = roomId;
         this.from = from;
         this.to = to;
     }
 
     /** Constructor to take ID, Buyer Object, Renter Object, time, Room ID, From, and To*/
-    public Payment(int id, Account buyer, Renter renter, int roomId, Date from, Date to) {
-        super(id, buyer, renter);
+    public Payment(Account buyer, Renter renter, int roomId, Date from, Date to) {
+        super(buyer, renter);
         this.roomId = roomId;
         this.from = from;
         this.to = to;
@@ -65,10 +65,12 @@ public class Payment extends Invoice{
         if(room.booked.isEmpty()){
             return true;
         }
+
         for (Date i : room.booked) {
             if((i.after(from) && i.before(to)) || i.equals(from))
                 return false;
         }
+
         return true;
     }
 
