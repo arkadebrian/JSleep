@@ -1,5 +1,5 @@
 package ArkaBrianJSleepRJ;
 
 public interface Predicate <T>{
-    boolean predicate(T pred);
+    public boolean predicate(T pred);
 }

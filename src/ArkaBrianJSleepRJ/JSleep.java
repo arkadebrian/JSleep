@@ -6,16 +6,33 @@ package ArkaBrianJSleepRJ;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class JSleep {
+
+//    public static void paginate(int[] array, int page, int pageSize){
+//        List<Integer> list = new ArrayList<>();
+//        int count = 0;
+//        for(int i : array){
+//            if(count >= page * pageSize && count < (page + 1) * pageSize){
+//                list.add(i);
+//            }
+//            count++;
+//        }
+//        System.out.println(list);
+//    }
+
     public static void main(String[] args) {
         ArrayList<Room> RoomSerialized = new ArrayList<>();
-
         for (int i = 0; i < 5; i++) {
             RoomSerialized.add(i, JSleep.createRoom());
             System.out.println(RoomSerialized.get(i).toString());
         }
+
+//        paginate(new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}, 2, 8);
+
     }
 
 //    static int getHotelId(){

@@ -62,6 +62,9 @@ public class Payment extends Invoice{
     }
 
     public static boolean availability(Date from, Date to, Room room){
+        if(to.before(from))
+            return false;
+
         if(room.booked.isEmpty()){
             return true;
         }
