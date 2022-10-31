@@ -4,35 +4,42 @@ package ArkaBrianJSleepRJ;
  * By: Arka Brian Dewara (2106731421)
 */
 
+import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import com.google.gson.*;
 
 public class JSleep {
 
-//    public static void paginate(int[] array, int page, int pageSize){
-//        List<Integer> list = new ArrayList<>();
-//        int count = 0;
-//        for(int i : array){
-//            if(count >= page * pageSize && count < (page + 1) * pageSize){
-//                list.add(i);
-//            }
-//            count++;
-//        }
-//        System.out.println(list);
-//    }
+    class Country{
+        public String name;
+        public int population;
+        public List<String> listOfStates;
+    }
 
     public static void main(String[] args) {
-        ArrayList<Room> RoomSerialized = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            RoomSerialized.add(i, JSleep.createRoom());
-            System.out.println(RoomSerialized.get(i).toString());
+        String filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\city.json";
+        Gson gson = new Gson();
+
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            Country input = gson.fromJson(br, Country.class);
+            System.out.println("name: " + input.name);
+            System.out.println("population: " + input.population);
+            System.out.println("states: ");
+            input.listOfStates.forEach(state -> System.out.println(state));
         }
-
-//        paginate(new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}, 2, 8);
-
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 //    static int getHotelId(){
