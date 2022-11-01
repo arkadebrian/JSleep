@@ -62,8 +62,8 @@ public class JSleep {
         return Algorithm.<Room>collect(rooms, i -> ((i.price.price >= minPrice) && (i.price.price <= maxPrice)));
     }
 
-    public static List<Room> filterByAccoundId(List<Room> rooms, int id, int page, int pageSize){
-        return Algorithm.paginate(rooms, page, pageSize, i -> i.accoundId == id);
+    public static List<Room> filterByAccoundId(List<Room> rooms, int accountId, int page, int pageSize){
+        return Algorithm.paginate(rooms, page, pageSize, i -> i.accoundId == accountId);
     }
 
 //    static int getHotelId(){
