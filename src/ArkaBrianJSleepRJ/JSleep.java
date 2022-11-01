@@ -19,27 +19,51 @@ import com.google.gson.*;
 
 public class JSleep {
 
-    class Country{
-        public String name;
-        public int population;
-        public List<String> listOfStates;
-    }
+//    class Country{
+//        public String name;
+//        public int population;
+//        public List<String> listOfStates;
+//    }
 
     public static void main(String[] args) {
-        String filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\city.json";
-        Gson gson = new Gson();
+//        String filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\city.json";
+//        Gson gson = new Gson();
+//
+//        try{
+//            BufferedReader br = new BufferedReader(new FileReader(filepath));
+//            Country input = gson.fromJson(br, Country.class);
+//            System.out.println("name: " + input.name);
+//            System.out.println("population: " + input.population);
+//            System.out.println("states: ");
+//            input.listOfStates.forEach(state -> System.out.println(state));
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
 
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(filepath));
-            Country input = gson.fromJson(br, Country.class);
-            System.out.println("name: " + input.name);
-            System.out.println("population: " + input.population);
-            System.out.println("states: ");
-            input.listOfStates.forEach(state -> System.out.println(state));
+        try {
+            String filePath = "src\\json\\randomRoomList.json";
+
+            JsonTable<Room> tableRoom = new JsonTable<>(Room.class, filePath);
+            List<Room> filteredRoom = filterByCity(tableRoom, "jakarta", 0, 5);
+            filteredRoom.forEach(room -> System.out.println(room.toString()));
         }
-        catch (IOException e){
-            e.printStackTrace();
+        catch (Throwable t){
+            t.printStackTrace();
         }
+
+    }
+
+    public static List<Room> filterByCity(List<Room> rooms, String city, int page, int pageSize){
+        return Algorithm.paginate(rooms, page, pageSize, i -> i.city == City.valueOf(city.toUpperCase()));
+    }
+
+    public static List<Room> filterByPrice(List<Room> rooms, double minPrice, double maxPrice){
+        return Algorithm.<Room>collect(rooms, i -> ((i.price.price >= minPrice) && (i.price.price <= maxPrice)));
+    }
+
+    public static List<Room> filterByAccoundId(List<Room> rooms, int id, int page, int pageSize){
+        return Algorithm.paginate(rooms, page, pageSize, i -> i.accoundId == id);
     }
 
 //    static int getHotelId(){
@@ -89,7 +113,7 @@ public class JSleep {
 
     public static Room createRoom(){
         Price price = new Price(100000, 0.5);
-        return new Room("Hotel", 30, price, Facility.AC, City.DEPOK, "Jalan Margonda Raya");
+        return new Room(1234,"Hotel", 30, price, Facility.AC, City.DEPOK, "Jalan Margonda Raya");
     }
 
 }

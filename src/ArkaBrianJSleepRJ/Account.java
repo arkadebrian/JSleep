@@ -1,6 +1,6 @@
 package ArkaBrianJSleepRJ;
 
-public class Account extends Serializable implements FileParser{
+public class Account extends Serializable{
     public String name;
     public String email;
     public String password;
@@ -20,13 +20,4 @@ public class Account extends Serializable implements FileParser{
                '}';
     }
 
-    @Override
-    public Object write() {
-        return null;
-    }
-
-    @Override
-    public boolean read(String arr) {
-        return false;
-    }
 }

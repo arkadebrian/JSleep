@@ -3,17 +3,18 @@ package ArkaBrianJSleepRJ;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Room extends Serializable implements FileParser{
+public class Room extends Serializable{
     public Price price;
     public String address;
     public int size;
+    public int accoundId;
     public Facility facility;
     public BedType bedType;
     public City city;
     public String name;
     public ArrayList<Date> booked;
-
-    public Room(String name, int size, Price price, Facility facility, City city, String address) {
+    public Room(int accoundId, String name, int size, Price price, Facility facility, City city, String address) {
+        this.accoundId = accoundId;
         this.name = name;
         this.size = size;
         this.price = price;
@@ -25,6 +26,7 @@ public class Room extends Serializable implements FileParser{
 
     public String toString() {
         return "Room{\n" +
+               "\taccoudnId = " + this.accoundId + '\n' +
                "\tprice = " + this.price + '\n' +
                "\taddress = " + this.address + '\n' +
                "\tsize = " + this.size + '\n' +
@@ -34,16 +36,6 @@ public class Room extends Serializable implements FileParser{
                "\tname = " + this.name + '\n' +
                "\tID = " + this.id + '\n' +
                '}';
-    }
-
-    @Override
-    public Object write() {
-        return null;
-    }
-
-    @Override
-    public boolean read(String arr) {
-        return false;
     }
 
 }

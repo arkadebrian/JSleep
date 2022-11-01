@@ -46,9 +46,9 @@ public class Price {
 
     public String toString() {
         return "Price{\n" +
-               "\tprice=" + this.price + '\n' +
-               "\tdiscount=" + this.discount + '\n' +
-               '}';
+               "\t\tprice=" + this.price + '\n' +
+               "\t\tdiscount=" + this.discount + '\n' +
+               "\t}";
     }
 
     //        private double getDiscountedPrice(){

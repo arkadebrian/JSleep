@@ -62,15 +62,20 @@ public class Payment extends Invoice{
     }
 
     public static boolean availability(Date from, Date to, Room room){
-        if(to.before(from))
+        Calendar start = Calendar.getInstance();
+        start.setTime(from);
+        Calendar end = Calendar.getInstance();
+        end.setTime(to);
+
+        if(start.after(end) || start.equals(end))
             return false;
 
         if(room.booked.isEmpty()){
             return true;
         }
 
-        for (Date i : room.booked) {
-            if((i.after(from) && i.before(to)) || i.equals(from))
+        for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+            if(room.booked.contains(date))
                 return false;
         }
 

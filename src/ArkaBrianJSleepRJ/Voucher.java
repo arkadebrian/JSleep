@@ -1,6 +1,6 @@
 package ArkaBrianJSleepRJ;
 
-public class Voucher extends Serializable implements FileParser{
+public class Voucher extends Serializable{
     public String name;
     public int code;
     public Type type;
@@ -38,16 +38,6 @@ public class Voucher extends Serializable implements FileParser{
             return price.price - this.cut;
         }
 
-    }
-
-    @Override
-    public Object write() {
-        return null;
-    }
-
-    @Override
-    public boolean read(String arr) {
-        return false;
     }
 
 }
