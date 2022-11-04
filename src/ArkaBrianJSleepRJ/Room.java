@@ -7,14 +7,14 @@ public class Room extends Serializable{
     public Price price;
     public String address;
     public int size;
-    public int accoundId;
+    public int accountId;
     public Facility facility;
     public BedType bedType;
     public City city;
     public String name;
     public ArrayList<Date> booked;
-    public Room(int accoundId, String name, int size, Price price, Facility facility, City city, String address) {
-        this.accoundId = accoundId;
+    public Room(int accountId, String name, int size, Price price, Facility facility, City city, String address) {
+        this.accountId = accountId;
         this.name = name;
         this.size = size;
         this.price = price;
@@ -26,7 +26,7 @@ public class Room extends Serializable{
 
     public String toString() {
         return "Room{\n" +
-               "\taccoudnId = " + this.accoundId + '\n' +
+               "\taccoudnId = " + this.accountId + '\n' +
                "\tprice = " + this.price + '\n' +
                "\taddress = " + this.address + '\n' +
                "\tsize = " + this.size + '\n' +

@@ -4,6 +4,7 @@ package ArkaBrianJSleepRJ;
  * By: Arka Brian Dewara (2106731421)
 */
 
+import java.io.FileWriter;
 import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class JSleep {
 //        public List<String> listOfStates;
 //    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        String filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\city.json";
 //        Gson gson = new Gson();
 //
@@ -41,17 +42,33 @@ public class JSleep {
 //            e.printStackTrace();
 //        }
 
-        try {
-            String filePath = "src\\json\\randomRoomList.json";
+//        try {
+//            String filePath = "src\\json\\randomRoomList.json";
+//
+//            JsonTable<Room> tableRoom = new JsonTable<>(Room.class, filePath);
+//            List<Room> filteredRoom = filterByCity(tableRoom, "jakarta", 0, 5);
+//            filteredRoom.forEach(room -> System.out.println(room.toString()));
+//        }
+//        catch (Throwable t){
+//            t.printStackTrace();
+//        }
 
-            JsonTable<Room> tableRoom = new JsonTable<>(Room.class, filePath);
-            List<Room> filteredRoom = filterByCity(tableRoom, "jakarta", 0, 5);
-            filteredRoom.forEach(room -> System.out.println(room.toString()));
+        try {
+            String filePath = "src\\json\\account.json";
+
+            JsonTable<Account> tableAccount= new JsonTable<>(Account.class, filePath);
+            Account akun = new Account("name", "email", "password");
+            tableAccount.add(akun);
+            tableAccount.writeJson();
         }
         catch (Throwable t){
             t.printStackTrace();
         }
 
+        for (int i = 0; i < 10; i++) {
+            ThreadingObject thread = new ThreadingObject("Thread " + i);
+            thread.start();
+        }
     }
 
     public static List<Room> filterByCity(List<Room> rooms, String city, int page, int pageSize){
@@ -62,8 +79,8 @@ public class JSleep {
         return Algorithm.<Room>collect(rooms, i -> ((i.price.price >= minPrice) && (i.price.price <= maxPrice)));
     }
 
-    public static List<Room> filterByAccoundId(List<Room> rooms, int accountId, int page, int pageSize){
-        return Algorithm.paginate(rooms, page, pageSize, i -> i.accoundId == accountId);
+    public static List<Room> filterByAccountId(List<Room> account, int accountId, int page, int pageSize){
+        return Algorithm.paginate(account, page, pageSize, i -> i.accountId == accountId);
     }
 
 //    static int getHotelId(){
