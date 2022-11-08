@@ -1,9 +1,9 @@
-package com.ArkaBrianJSleepRJ;
+package com.ArkaBrianJSleepRJ.dbjson;
 
 import java.util.HashMap;
 
 /**This class will be the parent of a lot of other classes*/
-public class Serializable {
+public class Serializable implements Comparable<Serializable> {
     /**To identify anything, something must have an ID*/
     final public int id;
     private static HashMap<Class<?>, Integer> mapCounter = new HashMap<>();

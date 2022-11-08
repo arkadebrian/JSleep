@@ -1,9 +1,15 @@
 package com.ArkaBrianJSleepRJ;
 
+import com.ArkaBrianJSleepRJ.BedType;
+import com.ArkaBrianJSleepRJ.City;
+import com.ArkaBrianJSleepRJ.Facility;
+import com.ArkaBrianJSleepRJ.Price;
+import com.ArkaBrianJSleepRJ.dbjson.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Room extends Serializable{
+public class Room extends Serializable {
     public Price price;
     public String address;
     public int size;

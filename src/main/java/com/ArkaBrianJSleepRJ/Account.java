@@ -1,11 +1,15 @@
 package com.ArkaBrianJSleepRJ;
 
-public class Account extends Serializable{
+import com.ArkaBrianJSleepRJ.dbjson.Serializable;
+
+public class Account extends Serializable {
     public String name;
     public String email;
     public String password;
-    final public static String REGEX_EMAIL = "^[a-zA_Z0-9]+@[a-zA-Z.]+.[a-zA-Z.][a-zA-Z]$";
-    final public static String REGEX_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+    public double balance;
+    public Renter renter;
+    final public static String REGEX_EMAIL = "^[A-Za-z0-9]+@[A-Za-z]+\\.[A-Za-z.]+[^.]$";
+    final public static String REGEX_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
     
     /**Constructor that uses ID, Name, Email, and Password*/
     public Account(String name, String email, String password) {

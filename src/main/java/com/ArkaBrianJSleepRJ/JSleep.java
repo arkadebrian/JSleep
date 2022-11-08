@@ -4,19 +4,12 @@ package com.ArkaBrianJSleepRJ;
  * By: Arka Brian Dewara (2106731421)
 */
 
-import java.io.FileWriter;
-import java.sql.Array;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-import com.google.gson.*;
+
+import com.ArkaBrianJSleepRJ.dbjson.JsonDBEngine;
+import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -62,7 +55,8 @@ public class JSleep {
 //            JsonTable<Account> tableAccount= new JsonTable<>(Account.class, filePath);
 //            Account akun = new Account("name", "email", "password");
 //            tableAccount.add(akun);
-//            tableAccount.writeJson();
+//            JsonTable.writeJson(tableAccount, filePath);
+//            tableAccount.forEach(account -> System.out.println(account.toString()));
 //        }
 //        catch (Throwable t){
 //            t.printStackTrace();
@@ -72,7 +66,10 @@ public class JSleep {
 //            ThreadingObject thread = new ThreadingObject("Thread " + i);
 //            thread.start();
 //        }
+
+        JsonDBEngine.Run(JSleep.class);
         SpringApplication.run(JSleep.class, args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
     }
 
     public static List<Room> filterByCity(List<Room> rooms, String city, int page, int pageSize){

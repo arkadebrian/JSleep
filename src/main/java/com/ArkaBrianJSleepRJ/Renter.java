@@ -1,6 +1,8 @@
 package com.ArkaBrianJSleepRJ;
 
-public class Renter extends Serializable{
+import com.ArkaBrianJSleepRJ.dbjson.Serializable;
+
+public class Renter extends Serializable {
     public String phoneNumber;
     public String address;
     public String username;

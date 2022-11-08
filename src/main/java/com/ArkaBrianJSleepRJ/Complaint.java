@@ -1,6 +1,8 @@
 package com.ArkaBrianJSleepRJ;
 
-public class Complaint extends Serializable{
+import com.ArkaBrianJSleepRJ.dbjson.Serializable;
+
+public class Complaint extends Serializable {
     public String desc;
     public String date;
 

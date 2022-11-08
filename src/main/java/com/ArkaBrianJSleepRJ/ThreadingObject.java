@@ -3,6 +3,7 @@ package com.ArkaBrianJSleepRJ;
 public class ThreadingObject extends Thread{
     public ThreadingObject(String name) {
         super(name);
+        start();
     }
 
     @Override

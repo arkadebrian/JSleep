@@ -1,6 +1,10 @@
 package com.ArkaBrianJSleepRJ;
 
-public class Voucher extends Serializable{
+import com.ArkaBrianJSleepRJ.Price;
+import com.ArkaBrianJSleepRJ.Type;
+import com.ArkaBrianJSleepRJ.dbjson.Serializable;
+
+public class Voucher extends Serializable {
     public String name;
     public int code;
     public Type type;
