@@ -3,6 +3,7 @@ package com.ArkaBrianJSleepRJ.controller;
 import com.ArkaBrianJSleepRJ.Account;
 import com.ArkaBrianJSleepRJ.Algorithm;
 import com.ArkaBrianJSleepRJ.Renter;
+import com.ArkaBrianJSleepRJ.dbjson.JsonAutowired;
 import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,8 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account> {
+    @JsonAutowired(value = Account.class,
+            filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\main\\java\\com\\json\\account.json")
     JsonTable<Account> accountTable;
     final public static String REGEX_EMAIL = "^[A-Za-z0-9]+@[A-Za-z]+\\.[A-Za-z.]+[^.]$";
     final public static String REGEX_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
@@ -59,7 +62,7 @@ public class AccountController implements BasicGetController<Account> {
 
     @PostMapping("{id}/topUp")
     public boolean topUp(@PathVariable int id, @RequestParam double balance){
-        Account account = accountTable.get(id);
+        Account account = Algorithm.<Account>find(getJsonTable(), pred -> pred.id == id);
         if(account == null) return false;
         account.balance += balance;
         return true;
