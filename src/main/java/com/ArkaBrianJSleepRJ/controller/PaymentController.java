@@ -17,7 +17,7 @@ import java.util.List;
 public class PaymentController implements BasicGetController<Payment>{
     @JsonAutowired(value = Payment.class,
             filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\main\\java\\com\\json\\payment.json")
-    JsonTable<Payment> paymentTable;
+    public static JsonTable<Payment> paymentTable;
 
     @PostMapping("/create")
     public Payment create(

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class AccountController implements BasicGetController<Account> {
     @JsonAutowired(value = Account.class,
             filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\main\\java\\com\\json\\account.json")
-    JsonTable<Account> accountTable;
+    public static JsonTable<Account> accountTable;
     final public static String REGEX_EMAIL = "^[A-Za-z0-9]+@[A-Za-z]+\\.[A-Za-z.]+[^.]$";
     final public static String REGEX_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
     Pattern REGEX_PATTERN_EMAIL = Pattern.compile(REGEX_EMAIL);
@@ -26,12 +26,7 @@ public class AccountController implements BasicGetController<Account> {
     }
 
     @PostMapping("/register")
-    Account register
-            (
-                    @RequestParam String name,
-                    @RequestParam String email,
-                    @RequestParam String password
-            )
+    Account register(@RequestParam String name, @RequestParam String email, @RequestParam String password)
     {
         if(!name.isBlank()){
             if(REGEX_PATTERN_EMAIL.matcher(email).matches()){
