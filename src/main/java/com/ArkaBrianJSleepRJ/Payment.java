@@ -38,11 +38,11 @@ public class Payment extends Invoice {
     }
 
     /**This will return the current time in dd MMMM yyyy format*/
-    public String getTime(){
-        SimpleDateFormat formattedTime = new SimpleDateFormat("dd MMMM yyyy");
-        String strDate = formattedTime.format(this.time.getTime());
-        return "Formatted Date = " + strDate;
-    }
+//    public String getTime(){
+//        SimpleDateFormat formattedTime = new SimpleDateFormat("dd MMMM yyyy");
+//        String strDate = formattedTime.format(this.time.getTime());
+//        return "Formatted Date = " + strDate;
+//    }
 
     public static boolean makeBooking(Date from, Date to, Room room){
         if(to.before(from))

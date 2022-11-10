@@ -7,6 +7,9 @@ import com.ArkaBrianJSleepRJ.dbjson.JsonAutowired;
 import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -26,12 +29,12 @@ public class AccountController implements BasicGetController<Account> {
     }
 
     @PostMapping("/register")
-    Account register(@RequestParam String name, @RequestParam String email, @RequestParam String password)
-    {
+    Account register(@RequestParam String name, @RequestParam String email, @RequestParam String password) throws NoSuchAlgorithmException {
         if(!name.isBlank()){
             if(REGEX_PATTERN_EMAIL.matcher(email).matches()){
                 if(REGEX_PATTERN_PASSWORD.matcher(password).matches()){
-                    Account account = new Account(name, email, password);
+                    String hash = hash(password);
+                    Account account = new Account(name, email, hash);
                     accountTable.add(account);
                     return account;
                 }
@@ -46,9 +49,10 @@ public class AccountController implements BasicGetController<Account> {
     }
 
     @PostMapping("/login")
-    public Account login(@RequestParam String email, @RequestParam String password){
+    public Account login(@RequestParam String email, @RequestParam String password) throws NoSuchAlgorithmException {
         for(Account account : getJsonTable()){
-            if(account.email.equals(email) && account.password.equals(password)){
+            String hash = hash(password);
+            if(account.email.equals(email) && account.password.equals(hash)){
                 return account;
             }
         }
@@ -75,5 +79,15 @@ public class AccountController implements BasicGetController<Account> {
         return null;
     }
 
+    public static String hash(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+    }
 
 }

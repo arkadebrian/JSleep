@@ -1,14 +1,12 @@
 package com.ArkaBrianJSleepRJ.controller;
 
-import com.ArkaBrianJSleepRJ.Algorithm;
-import com.ArkaBrianJSleepRJ.Payment;
+import com.ArkaBrianJSleepRJ.*;
 import com.ArkaBrianJSleepRJ.dbjson.JsonAutowired;
 import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +17,11 @@ public class PaymentController implements BasicGetController<Payment>{
             filepath = "C:\\Users\\Arka Brian\\Documents\\Arka\\Kuliah\\UI\\Semester 3\\OOP\\Praktikum\\PraktikumCode\\JSleep\\src\\main\\java\\com\\json\\payment.json")
     public static JsonTable<Payment> paymentTable;
 
+    @GetMapping
+    String index() {
+        return "payment page";
+    }
+
     @PostMapping("/create")
     public Payment create(
             @RequestParam int buyerId,
@@ -26,17 +29,50 @@ public class PaymentController implements BasicGetController<Payment>{
             @RequestParam int roomId,
             @RequestParam String from,
             @RequestParam String to
-    ){
-        return null;
+    ) throws ParseException {
+        Account account = Algorithm.<Account>find(new AccountController().getJsonTable(), pred -> pred.id == buyerId);
+        Room room = Algorithm.<Room>find(new RoomController().getJsonTable(), pred -> pred.id == buyerId);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fromDate = sdf.parse(from);
+        Date toDate = sdf.parse(to);
+
+        if(account == null) return null;
+        if(room == null) return null;
+        if(account.balance <= room.price.price) return null;
+        if(!Payment.availability(fromDate, toDate, room)) return null;
+
+        double price = room.price.price;
+        Payment payment = new Payment(buyerId, renterId, roomId, fromDate, toDate);
+        account.balance -= price;
+        payment.status = Invoice.PaymentStatus.WAITING;
+        if(Payment.makeBooking(fromDate, toDate, room)){
+            paymentTable.add(payment);
+            return payment;
+        }
+        else return null;
     }
 
     @PostMapping("/{id}/accept")
     public boolean accept(@RequestParam int id){
+        Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);
+        if(payment != null){
+            if(payment.status == Invoice.PaymentStatus.WAITING){
+                payment.status = Invoice.PaymentStatus.SUCCESS;
+                return true;
+            }
+        }
         return false;
     }
 
     @PostMapping("/{id}/cancel")
     public boolean cancel(@RequestParam int id){
+        Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);
+        if(payment != null){
+            if(payment.status == Invoice.PaymentStatus.WAITING){
+                payment.status = Invoice.PaymentStatus.SUCCESS;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -59,5 +95,6 @@ public class PaymentController implements BasicGetController<Payment>{
     public List<Payment> getPage(int page, int pageSize) {
         return Algorithm.paginate(getJsonTable(), page, pageSize, pred -> true);
     }
+
 
 }

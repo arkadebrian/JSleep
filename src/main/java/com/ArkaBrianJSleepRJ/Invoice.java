@@ -20,7 +20,7 @@ public class Invoice extends Serializable {
 
     public int buyerId;
     public int renterId;
-    public Date time;
+//    public Date time;
     public RoomRating rating;
     public PaymentStatus status;
 
@@ -28,14 +28,14 @@ public class Invoice extends Serializable {
     protected Invoice(int buyerId, int renterId) {
         this.buyerId = buyerId;
         this.renterId = renterId;
-        this.time = new Date();
+//        this.time = new Date();
         this.rating = RoomRating.NONE;
         this.status = PaymentStatus.WAITING;
     }
 
     /**Constructor which uses ID, Buyer Object, Renter Object, and time*/
     public Invoice(Account buyer, Renter renter) {
-        this.time = new Date();
+//        this.time = new Date();
         this.buyerId = buyer.id;
         this.renterId = renter.id;
         this.rating = RoomRating.NONE;
@@ -45,8 +45,8 @@ public class Invoice extends Serializable {
     /**This method will return the string which contains all attributes in this class*/
     public String print(){
         return "Buyer  ID : " + this.buyerId  +
-             "\nRenter ID : " + this.renterId +
-             "\nTime      : " + this.time;
+             "\nRenter ID : " + this.renterId;
+//             "\nTime      : " + this.time;
     }
 
 }
