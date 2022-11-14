@@ -30,8 +30,8 @@ public class PaymentController implements BasicGetController<Payment>{
             @RequestParam String from,
             @RequestParam String to
     ) throws ParseException {
-        Account account = Algorithm.<Account>find(new AccountController().getJsonTable(), pred -> pred.id == buyerId);
-        Room room = Algorithm.<Room>find(new RoomController().getJsonTable(), pred -> pred.id == buyerId);
+        Account account = Algorithm.<Account>find(AccountController.accountTable, pred -> pred.id == buyerId);
+        Room room = Algorithm.<Room>find(RoomController.roomTable, pred -> pred.id == buyerId);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fromDate = sdf.parse(from);
         Date toDate = sdf.parse(to);
@@ -53,27 +53,26 @@ public class PaymentController implements BasicGetController<Payment>{
     }
 
     @PostMapping("/{id}/accept")
-    public boolean accept(@RequestParam int id){
+    public boolean accept( @PathVariable int id ){
         Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);
-        if(payment != null){
-            if(payment.status == Invoice.PaymentStatus.WAITING){
-                payment.status = Invoice.PaymentStatus.SUCCESS;
-                return true;
-            }
-        }
-        return false;
+        if(payment == null ) return false;
+        if(payment.status == Invoice.PaymentStatus.WAITING) return false;
+        payment.status = Invoice.PaymentStatus.SUCCESS;
+        return true;
     }
 
     @PostMapping("/{id}/cancel")
-    public boolean cancel(@RequestParam int id){
+    public boolean cancel(@PathVariable int id ){
         Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);
-        if(payment != null){
-            if(payment.status == Invoice.PaymentStatus.WAITING){
-                payment.status = Invoice.PaymentStatus.SUCCESS;
-                return true;
-            }
-        }
-        return false;
+        if(payment == null) return false;
+        if(payment.status != Invoice.PaymentStatus.WAITING) return false;
+
+        Account buyer = Algorithm.<Account>find(AccountController.accountTable, pred -> pred.id == payment.buyerId);
+        Room room = Algorithm.<Room>find(RoomController.roomTable, pred -> pred.id == payment.getRoomId());
+        payment.status = Invoice.PaymentStatus.FAILED;
+        buyer.balance += room.price.price;
+        return true;
+
     }
 
     @PostMapping("/{id}/submit")
