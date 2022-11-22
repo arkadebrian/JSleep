@@ -13,8 +13,7 @@ import java.lang.annotation.Target;
  */
 @Retention(value=RetentionPolicy.RUNTIME)
 @Target(value={ElementType.FIELD})
-public @interface JsonAutowired
-{
+public @interface JsonAutowired {
 	Class<?> value();
 	String filepath();
 }

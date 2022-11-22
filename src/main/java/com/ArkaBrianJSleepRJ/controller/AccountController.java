@@ -7,10 +7,9 @@ import com.ArkaBrianJSleepRJ.dbjson.JsonAutowired;
 import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
@@ -30,17 +29,21 @@ public class AccountController implements BasicGetController<Account> {
 
     @PostMapping("/register")
     Account register(@RequestParam String name, @RequestParam String email, @RequestParam String password) throws NoSuchAlgorithmException {
-        if(!name.isBlank()){
-            if(REGEX_PATTERN_EMAIL.matcher(email).matches()){
-                if(REGEX_PATTERN_PASSWORD.matcher(password).matches()){
-                    String hash = hash(password);
-                    Account account = new Account(name, email, hash);
-                    accountTable.add(account);
-                    return account;
-                }
-            }
-        }
-        return null;
+        Matcher matcherEmail = REGEX_PATTERN_EMAIL.matcher(email);
+        boolean matchEmail = matcherEmail.find();
+
+        Matcher matcherPassword = REGEX_PATTERN_PASSWORD.matcher(password);
+        boolean matchFoundPassword = matcherPassword.find();
+
+        Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email.equals(email));
+
+        if (findAccount == null && matchEmail && matchFoundPassword) {
+            final String generatedPassword;
+            generatedPassword = hash(password);
+            Account account = new Account(name, email, generatedPassword);
+            accountTable.add(account);
+            return account;
+        } return null;
     }
 
     @Override
@@ -68,7 +71,12 @@ public class AccountController implements BasicGetController<Account> {
     }
 
     @PostMapping("{id}/registerRenter")
-    public Renter registerRenter(@PathVariable int id, @RequestParam String username, @RequestParam String address, @RequestParam String phoneNumber){
+    public Renter registerRenter(
+            @PathVariable int id,
+            @RequestParam String username,
+            @RequestParam String address,
+            @RequestParam String phoneNumber
+    ){
         for(Account account : accountTable){
             if(account.id == id){
                 Renter renter = new Renter(username, address, phoneNumber);
