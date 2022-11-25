@@ -5,8 +5,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.lang.reflect.Array;
-import java.util.Collections;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Json Table is used to write and read JSON in every class or method that call json table
@@ -19,7 +18,8 @@ public class JsonTable<T> extends Vector<T> {
     public final String filepath;
 
     @SuppressWarnings("unchecked")
-    public JsonTable(Class<T> clazz, String filepath) throws IOException {
+    public JsonTable(Class<T> clazz, String filepath) throws IOException
+    {
         this.filepath = filepath;
         try
         {
@@ -38,19 +38,21 @@ public class JsonTable<T> extends Vector<T> {
         }
     }
 
-    public void writeJson() throws IOException {
+    public void writeJson() throws IOException
+    {
         writeJson(this, this.filepath);
     }
 
-    public static void writeJson(Object object, String filepath) throws IOException {
+    public static void writeJson(Object object, String filepath) throws IOException
+    {
         final FileWriter writer = new FileWriter(filepath);
         writer.write(gson.toJson(object));
         writer.close();
     }
 
-    public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException {
+    public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException
+    {
         final JsonReader reader = new JsonReader(new FileReader(filepath));
         return gson.fromJson(reader, clazz);
     }
 }
-

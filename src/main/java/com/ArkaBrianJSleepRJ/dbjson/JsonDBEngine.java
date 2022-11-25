@@ -22,7 +22,6 @@ public class JsonDBEngine
 	/** Interval in milliseconds for {@link #autosaver()} */
 	public static long autosaveIntervalMS = 10000;
 	public static long sleepIntervalMS = 100;
-
 	private static boolean exitSignal = false;
 	private static Thread autosaveThread;
 	private static final HashMap<String, JsonTable<?>> loadedJsonTable = new HashMap<>();

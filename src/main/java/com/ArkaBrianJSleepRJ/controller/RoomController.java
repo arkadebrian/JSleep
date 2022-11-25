@@ -5,7 +5,7 @@ import com.ArkaBrianJSleepRJ.dbjson.JsonAutowired;
 import com.ArkaBrianJSleepRJ.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/room")
@@ -41,16 +41,16 @@ public class RoomController implements BasicGetController<Room>{
             @RequestParam String name,
             @RequestParam int size,
             @RequestParam int price,
-            @RequestParam Facility facility,
+            @RequestParam ArrayList<Facility> facility,
             @RequestParam City city,
-            @RequestParam String address
+            @RequestParam String address,
+            @RequestParam BedType bedType
             ){
         Account account = Algorithm.<Account>find(AccountController.accountTable, pred -> pred.id == accountId && pred.renter != null);
         if(account == null) return null;
-        else{
-            Room room = new Room(accountId, name, size, new Price(price), facility, city, address);
-            roomTable.add(room);
-            return room;
-        }
+        Room room = new Room(accountId, name, size, new Price(price), facility, city, address, bedType);
+        roomTable.add(room);
+        return room;
+
     }
 }

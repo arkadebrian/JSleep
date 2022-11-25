@@ -72,17 +72,17 @@ public class JSleep {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
     }
 
-    public static List<Room> filterByCity(List<Room> rooms, String city, int page, int pageSize){
-        return Algorithm.paginate(rooms, page, pageSize, i -> i.city == City.valueOf(city.toUpperCase()));
-    }
-
-    public static List<Room> filterByPrice(List<Room> rooms, double minPrice, double maxPrice){
-        return Algorithm.<Room>collect(rooms, i -> ((i.price.price >= minPrice) && (i.price.price <= maxPrice)));
-    }
-
-    public static List<Room> filterByAccountId(List<Room> account, int accountId, int page, int pageSize){
-        return Algorithm.paginate(account, page, pageSize, i -> i.accountId == accountId);
-    }
+//    public static List<Room> filterByCity(List<Room> rooms, String city, int page, int pageSize){
+//        return Algorithm.paginate(rooms, page, pageSize, i -> i.city == City.valueOf(city.toUpperCase()));
+//    }
+//
+//    public static List<Room> filterByPrice(List<Room> rooms, double minPrice, double maxPrice){
+//        return Algorithm.<Room>collect(rooms, i -> ((i.price.price >= minPrice) && (i.price.price <= maxPrice)));
+//    }
+//
+//    public static List<Room> filterByAccountId(List<Room> account, int accountId, int page, int pageSize){
+//        return Algorithm.paginate(account, page, pageSize, i -> i.accountId == accountId);
+//    }
 
 //    static int getHotelId(){
 //        return 0;
@@ -128,10 +128,5 @@ public class JSleep {
 //    static int getTotalPrice(int price, int numberOfNight){
 //        return (price + getAdminFee(price))*numberOfNight;
 //    }
-
-    public static Room createRoom(){
-        Price price = new Price(100000, 0.5);
-        return new Room(1234,"Hotel", 30, price, Facility.AC, City.DEPOK, "Jalan Margonda Raya");
-    }
 
 }
