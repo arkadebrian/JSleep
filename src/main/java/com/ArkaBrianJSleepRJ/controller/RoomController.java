@@ -35,12 +35,12 @@ public class RoomController implements BasicGetController<Room>{
         return Algorithm.paginate(getJsonTable(), page, pageSize, pred -> pred.accountId == id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createRoom")
     public Room create(
             @RequestParam int accountId,
             @RequestParam String name,
             @RequestParam int size,
-            @RequestParam int price,
+            @RequestParam double price,
             @RequestParam ArrayList<Facility> facility,
             @RequestParam City city,
             @RequestParam String address,
@@ -51,6 +51,12 @@ public class RoomController implements BasicGetController<Room>{
         Room room = new Room(accountId, name, size, new Price(price), facility, city, address, bedType);
         roomTable.add(room);
         return room;
-
+    }
+    @GetMapping("/getAllRoom")
+    List<Room> getAllRoom(
+            @RequestParam int page,
+            @RequestParam int pageSize
+    ){
+        return Algorithm.paginate(getJsonTable(), page, pageSize, pred -> true);
     }
 }
