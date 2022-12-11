@@ -31,7 +31,7 @@ public class PaymentController implements BasicGetController<Payment>{
             @RequestParam String to
     ) throws ParseException {
         Account account = Algorithm.<Account>find(AccountController.accountTable, pred -> pred.id == buyerId);
-        Room room = Algorithm.<Room>find(RoomController.roomTable, pred -> pred.id == buyerId);
+        Room room = Algorithm.<Room>find(RoomController.roomTable, pred -> pred.id == roomId);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fromDate = sdf.parse(from);
         Date toDate = sdf.parse(to);
@@ -40,6 +40,7 @@ public class PaymentController implements BasicGetController<Payment>{
         if(room == null) return null;
         if(account.balance <= room.price.price) return null;
         if(!Payment.availability(fromDate, toDate, room)) return null;
+
 
         double price = room.price.price;
         Payment payment = new Payment(buyerId, renterId, roomId, fromDate, toDate);
@@ -80,6 +81,15 @@ public class PaymentController implements BasicGetController<Payment>{
         return false;
     }
 
+    @GetMapping("/getAllOrder/{id}")
+    List<Payment> getAllOrder(
+            @PathVariable int id,
+            @RequestParam int page,
+            @RequestParam int pageSize
+    ){
+        return Algorithm.<Payment>paginate(getJsonTable(), page, pageSize, pred -> pred.buyerId == id);
+    }
+
     @Override
     public JsonTable<Payment> getJsonTable() {
         return paymentTable;
@@ -94,6 +104,4 @@ public class PaymentController implements BasicGetController<Payment>{
     public List<Payment> getPage(int page, int pageSize) {
         return Algorithm.paginate(getJsonTable(), page, pageSize, pred -> true);
     }
-
-
 }
