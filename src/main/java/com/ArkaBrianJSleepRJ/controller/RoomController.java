@@ -24,6 +24,15 @@ public class RoomController implements BasicGetController<Room>{
         return roomTable;
     }
 
+    /**
+     * Handles HTTP GET requests to retrieve a list of rooms rented by a specific renter.
+     *
+     * @param id the ID of the renter.
+     * @param page the page number for pagination.
+     * @param pageSize the number of items per page.
+     *
+     * @return a list of rooms rented by the specified renter matching the specified pagination criteria.
+     */
     @GetMapping("/{id}/renter")
     List<Room> getRoomByRenter
             (
@@ -35,6 +44,20 @@ public class RoomController implements BasicGetController<Room>{
         return Algorithm.paginate(getJsonTable(), page, pageSize, pred -> pred.accountId == id);
     }
 
+    /**
+     * Handles HTTP POST requests to create a new room.
+     *
+     * @param accountId the ID of the account that will own the room.
+     * @param name the name of the room.
+     * @param size the size of the room.
+     * @param price the price of the room.
+     * @param facility a list of facilities available in the room.
+     * @param city the city where the room is located.
+     * @param address the address of the room.
+     * @param bedType the type of bed in the room.
+     *
+     * @return the newly created room, or `null` if the specified account does not exist or is not a renter.
+     */
     @PostMapping("/createRoom")
     public Room create(
             @RequestParam int accountId,
@@ -52,6 +75,15 @@ public class RoomController implements BasicGetController<Room>{
         roomTable.add(room);
         return room;
     }
+
+    /**
+     * Handles HTTP GET requests to retrieve a list of rooms.
+     *
+     * @param page the page number for pagination.
+     * @param pageSize the number of items per page.
+     *
+     * @return a list of rooms matching the specified pagination criteria.
+     */
     @GetMapping("/getAllRoom")
     List<Room> getAllRoom(
             @RequestParam int page,

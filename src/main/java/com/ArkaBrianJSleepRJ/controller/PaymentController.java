@@ -22,6 +22,16 @@ public class PaymentController implements BasicGetController<Payment>{
         return "payment page";
     }
 
+    /**
+     * Creates a payment object based on the given parameters.
+     * @param buyerId ID of the buyer
+     * @param renterId ID of the renter
+     * @param roomId ID of the room
+     * @param from start date of the payment
+     * @param to end date of the payment
+     * @return the created Payment object
+     * @throws ParseException if the given dates are not in the expected format
+     */
     @PostMapping("/create")
     public Payment create(
             @RequestParam int buyerId,
@@ -53,6 +63,11 @@ public class PaymentController implements BasicGetController<Payment>{
         else return null;
     }
 
+    /**
+     * Accepts a payment with the given ID.
+     * @param id ID of the payment to accept
+     * @return true if the payment was successfully accepted, false otherwise
+     */
     @PostMapping("/{id}/accept")
     public boolean accept( @PathVariable int id ){
         Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);
@@ -62,6 +77,11 @@ public class PaymentController implements BasicGetController<Payment>{
         return true;
     }
 
+    /**
+     * Cancel a payment with the given ID.
+     * @param id ID of the payment to accept
+     * @return true if the payment was successfully accepted, false otherwise
+     */
     @PostMapping("/{id}/cancel")
     public boolean cancel(@PathVariable int id ){
         Payment payment = Algorithm.<Payment>find(getJsonTable(), pred -> pred.id == id);

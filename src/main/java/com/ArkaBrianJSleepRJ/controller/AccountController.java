@@ -27,6 +27,14 @@ public class AccountController implements BasicGetController<Account> {
         return "account page";
     }
 
+    /**
+     * Registers a new account with the given name, email, and password.
+     * @param name the name of the user
+     * @param email the email of the user
+     * @param password the password of the user
+     * @return the registered Account object, or null if the registration failed
+     * @throws NoSuchAlgorithmException if the hashing algorithm specified in the method cannot be found
+     */
     @PostMapping("/register")
     Account register(@RequestParam String name, @RequestParam String email, @RequestParam String password) throws NoSuchAlgorithmException {
         Matcher matcherEmail = REGEX_PATTERN_EMAIL.matcher(email);
@@ -87,6 +95,12 @@ public class AccountController implements BasicGetController<Account> {
         return null;
     }
 
+    /**
+     * Hashes the given password using the MD5 algorithm.
+     * @param password the password to hash
+     * @return the hashed password
+     * @throws NoSuchAlgorithmException if the MD5 algorithm is not available
+     */
     public static String hash(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());

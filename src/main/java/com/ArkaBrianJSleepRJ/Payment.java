@@ -44,6 +44,13 @@ public class Payment extends Invoice {
 //        return "Formatted Date = " + strDate;
 //    }
 
+    /**
+     * Makes a booking for the given dates and room.
+     * @param from start date of the booking
+     * @param to end date of the booking
+     * @param room the room to make the booking for
+     * @return true if the booking was successful, false otherwise
+     */
     public static boolean makeBooking(Date from, Date to, Room room){
         if(to.before(from))
             return false;
@@ -61,6 +68,13 @@ public class Payment extends Invoice {
         return false;
     }
 
+    /**
+     * Determines whether the given dates are available for the given room.
+     * @param from start date of the availability check
+     * @param to end date of the availability check
+     * @param room the room to check availability for
+     * @return true if the given dates are available, false otherwise
+     */
     public static boolean availability(Date from, Date to, Room room){
         Calendar start = Calendar.getInstance();
         start.setTime(from);
